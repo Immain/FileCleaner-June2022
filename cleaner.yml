@@ -1,0 +1,23 @@
+# Cleaner Script #
+---
+- name: Cleaner Script
+  hosts: localhost
+  become: true
+  become_user: user
+  gather_facts: yes
+  tasks:
+
+  - name: get all but latest 5 files in folder
+    shell:
+      cmd: "ls -1tr /path/to/file/ | head --lines=-5"
+    register: ls_cmd
+    changed_when: ls_cmd.stdout_lines | length > 0
+
+  - name: delete any older files
+    when: ls_cmd.stdout_lines|length > 0
+    file:
+      path: /path/to/file/{{ item }}
+      state: absent
+    loop: "{{ ls_cmd.stdout_lines }}"
+    loop_control:
+      label: "/path/to/file/{{ item }}"
