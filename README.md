@@ -12,7 +12,7 @@ This will work on
 - Alpine
 
 ## How to Run:
-all you need to do is navigate to where you store your ansible playbook files, then run the command:
+All you need to do is navigate to where you store your ansible playbook files, then run the command:
 ```
 ansible-playbook cleaner.yml
 ```
